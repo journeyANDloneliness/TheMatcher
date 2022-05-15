@@ -22,8 +22,8 @@ export default function BlockParticipant(props) {
   const [activeCombiner, setActiveCombiner]=useState({})
   const [animBurst,setAnimBurst] = useState({})
   const [showFlare, setShowFlare] = useState(false)
-  const [topP, setTopP] = useState(props.participant)
-  const [botP, setBotP] = useState(props.participant)
+  const [topP, setTopP] = useState(null)
+  const [botP, setBotP] = useState(null)
   const [listPosib,setListPosib]= useState(blockToNumber({...props,stageCount:props.stageInfo.stageCount}))
   const is=iStage({...props,stageCount:props.stageInfo.stageCount})
   useEffect(()=>{
@@ -31,11 +31,12 @@ export default function BlockParticipant(props) {
     props.participant.forEach((o,i)=>{
       listPosib.forEach((v,n)=>{
       if(o.getPos({pos:v})){
-          if(o.stagePassed === is)
+          if(o.stagePassed >= is)
          { if(v/(2**is)>=1)
            setBotP(o)
            else
            setTopP(o)
+          console.log('aa')
          }
           
       }})
@@ -72,7 +73,7 @@ export default function BlockParticipant(props) {
     <div   className="packer" >
       <div className="cont">
       <div style={style} className="block-participant block-participant-bottom">
-        <topP.component {...topP.fields}/>
+                   {topP?<topP.component {...topP.fields}/>:""}
       </div>
         <div style={stylect} className="combiner-top ">
           <div className="combiner-flare">
@@ -86,7 +87,7 @@ export default function BlockParticipant(props) {
 
         <div style={stylecb} className="combiner-bottom "></div>
       <div style={style} className="block-participant block-participant-bottom">
-      <botP.component {...topP.fields}/>
+      {botP?<botP.component {...botP.fields}/>:""}
 
 </div>        
       </div>

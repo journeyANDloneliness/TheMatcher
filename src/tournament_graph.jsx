@@ -37,9 +37,12 @@ export default function TournamentGraph({ participant, card }) {
   };
   var sl = stager_list_l.fill(0).map((el, i) => {
     next *= 2;
-    return (props) => (
+    let n=next
+    return (props) => {
+      
+      return(
       <Stager stage={i + 1} stageInfo={stageInfo} pos={i} key={i.toString()}>
-        {Array(next / 2)
+        {Array(n / 2)
           .fill(0)
           .map((el, i2) => {
             setB[i2] = {};
@@ -59,7 +62,7 @@ export default function TournamentGraph({ participant, card }) {
             );
           })}
       </Stager>
-    );
+    );}
   });
   sl.unshift(
     (props)=><Stager side={props.side} stage={0} stageInfo={stageInfo}>
