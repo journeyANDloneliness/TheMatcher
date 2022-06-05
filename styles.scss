@@ -1,3 +1,7 @@
+@import "flare_scss";
+@import "./gradient.scss";
+@import "./sample_items.css";
+
 .App {
   font-family: sans-serif;
   text-align: center;
@@ -49,24 +53,24 @@
 
 .combiner-top {
  display: block;
- border-top: 2px solid #87c7e2;
- border-left: 2px solid #87c7e2;
- border-right: 2px solid #87c7e2;
- background-color:#222c58;
+// border-top: 2px solid #87c7e2;
+// border-left: 2px solid #87c7e2;
+// border-right: 2px solid #87c7e2;
+// background-color:#222c58;
  width: 100%;
 }
 .combiner-bottom {
   display: block;
-  border-bottom: 2px solid #87c7e2;
-  border-left: 2px solid #87c7e2;
-  border-right: 2px solid #87c7e2;
+ // border-bottom: 2px solid #87c7e2;
+ // border-left: 2px solid #87c7e2;
+ // border-right: 2px solid #87c7e2;
 
-  background-color:#222c58;
+//background-color:#222c58;
   width: 100%;
  }
 .combiner-single{
   display: block;
-  border: 1px solid #87c7e2;
+  //border: 1px solid #87c7e2;
   background-color:#222c58;
   width: 100%;
 }
@@ -91,13 +95,13 @@
 .block-participant{
   position:relative;
   //display:block;
-  border: 2px solid #7ea2bc;
-  background-color: #222c58;
+  //border: 2px solid #7ea2bc;
+ // background-color: #222c58;
   border-radius: 2px;
   //height: 50px;
   width:65%;
   //@for $var from start to end {
-    
+    z-index:1;
 
   text-align:center
 }
@@ -110,13 +114,13 @@
   width: 50%;
 }
 .cont{
-  width: 110%;
+  width: 100%;
   box-sizing: border-box;
 //height:100%;
   border-radius: 2px;
   //border: 2px solid #85cc12;
   //position: absolute;
-  background-color: #12507c;
+ // background-color: #12507c;
   //height:90px;
  // min-height:90px;
   //top:50%;
@@ -169,8 +173,8 @@ width: 100%;
 }
 .stager{
   // height:800px;
-   width:200px;
-  background-color: #494242;
+   width:100px;
+  //background-color: #494242;
   position:relative;
   display: flex;
   //height:800px;
@@ -185,10 +189,12 @@ width: 100%;
 .side{
   //height:100%;
  
-  background-color: #fa0606;
+  //background:linear-gradient(105deg,#051313 20%, #181d22 40%, #0a0c13 80%);
   align-items: stretch;
   display:flex;
  position: relative;
+  left:-8px;
+    overflow:hidden;
   //gap:-20px
 }
 .reverse{
@@ -197,14 +203,14 @@ width: 100%;
 .bracket-matching{
   //height:100%;
   //width:100%;
-  background-color: #221515;
+  background:linear-gradient(105deg,#051313 20%, #181d22 40%, #0a0c13 80%);
   align-items: center;
   display:flex;
 
  position: relative;
 }
 .center-matching{
-  width:800px;
+  width:100px;
   margin-left:-10px;
   margin-right:-10px;
   display:flex;

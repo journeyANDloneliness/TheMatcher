@@ -37,7 +37,36 @@ export function BlockParticipant(props) {
     setSoloB(props.soloB || props.stageInfo)
   },[props.soloB])
   
-  
+  // useEffect(() => {
+  //   setSoloT(props.stageInfo)
+  //   setSoloB(props.stageInfo)
+
+    
+  //   console.log("test")
+  //   props.participant.forEach((o, i) => {
+  //   console.log(o)
+      
+  //     listPosib.forEach((v, n) => {
+  //       if (o.selfNumber === v) {
+  //         if (o.stagePassed >= is) {
+  //           if (v <= ((2 ** is) * props.number)  - ((2 ** is) / 2) ){
+  //             //soloT=o
+  //             console.log("soloT",soloT)
+  //             setSoloT(o)
+  //           }
+  //           else{
+  //            //soloB=o
+  //             setSoloB(o)
+  //           }
+
+  //           console.log('solot or solob',soloT)
+  //         }
+
+  //       }
+  //     })
+  //   })
+  // }, [props.participant]);
+
   console.log("bp run...")
   const i = calculateFromInfo(props.stage, props.stageInfo);
   const style = {

@@ -1,0 +1,36 @@
+{
+  "files": {
+    "src/App.jsx": [
+      {
+        "id": "3cd99110-a6b5-422e-8e4b-25b23d156992",
+        "line": 103,
+        "version": 201,
+        "index": 2945
+      }
+    ],
+    "src/block_participant.jsx": [
+      {
+        "id": "3df0fe5f-2ec5-4042-a00b-5a8a5269f9c0",
+        "line": 64,
+        "version": 496,
+        "index": 1937
+      }
+    ],
+    "src/effect.jsx": [
+      {
+        "id": "f52aa18f-c60a-43d1-9580-f2e9fe919ae2",
+        "line": 49,
+        "version": 1244,
+        "index": 1475
+      }
+    ],
+    "src/matcher.jsx": [
+      {
+        "id": "765d2038-8367-4b9d-80be-3562f3654a77",
+        "line": 63,
+        "version": 68,
+        "index": 1396
+      }
+    ]
+  }
+}

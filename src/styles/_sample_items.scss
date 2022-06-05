@@ -1,0 +1,26 @@
+.list-select {
+ 
+  min-height:40px;
+  & div{
+    display:flex;
+    flex-direction:column-reverse;
+  }
+}
+.list-select-item{
+  height:20px;
+  border:1px 0 1px 0 solid #c9c8c5;
+}
+.show-fade{
+  opacity:0;
+  animation-name:sw;
+  animation-duration:1s;
+    animation-timing-function: ease-in-out;
+  animation-fill-mode:forwards;
+}
+@keyframes sw{
+  0%{opacity:0}
+  100%{opacity:1}
+}
+.flip-item{
+  transform:scaleX(-1);
+}

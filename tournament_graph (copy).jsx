@@ -73,7 +73,58 @@ export default function TournamentGraph({ ...props }) {
     
   },[])
 
+  const [b, setB] = useState(Array(16).fill({}));
+  const setBPInfo = (idx, data) => {
+    b[idx] = data;
+    setB(b);
+  };
+  console.log(props,props.participant)
+  const  sl = useRef([]) 
+  useEffect(()=>{
+  var stager_list_l = Array(3);
+  var next = 1;
+  sl.current = stager_list_l.fill(0).map((el, i) => {
+    next *= 2;
+    let n=next
+   
+      return (p2)=>{
+      return(
+      <Stager stage={i + 1} stageInfo={stageInfo} pos={i} key={i.toString()}>
+        {Array(n / 2)
+          .fill(0)
+          .map((el, i2) => {
+            setB[i2] = {};
+            return (
 
+              <BlockParticipant
+                number={i2 + 1}
+                stage={i + 1}
+                active
+                l={b}
+                stageInfo={stageInfo}
+                key={i2.toString()}
+                card={props.card}
+                
+                soloT={p2.pr[(stageInfo.stageCount - i)+"-"+(((i2 +1)*2)-1)]}
+                soloB={p2.pr[(stageInfo.stageCount - i)+"-"+((i2+1)*2)]}
+                
+              />
+    
+            );
+          })}
+      </Stager>)
+    }
+    })
+ 
+  sl.current.unshift(
+    (props)=>(
+    <Stager key={"last"} stage={0} stageInfo={stageInfo}>
+      <BlockParticipantSingle  stage={0} stageInfo={stageInfo} />
+    </Stager>)
+  );
+  //sl.current = 
+    
+  },[])
   
   return (
             <Animer >
@@ -100,9 +151,6 @@ export default function TournamentGraph({ ...props }) {
             );
           })}
       </Stager>))}
-                 <Stager key={"last"} stage={0} stageInfo={stageInfo}>
-      <BlockParticipantSingle  stage={0} stageInfo={stageInfo} />
-    </Stager>)
                 </Animer>
   );
 }
