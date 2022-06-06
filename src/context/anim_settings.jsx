@@ -16,6 +16,8 @@ const defaultAnimSett=[{anim:AnimBorderFlare,triggerAddData:({status,data})=>{
     }
   },doneTriggerAdd:({status,data,anim})=>{
    // data().justChangedStage=false
+  },collectId:({status,data,anim})=>{
+    return data().id
   }},{anim:AnimBorderFlare,triggerAddData:({status,data})=>{
    
     if((data()|| {reverse:false}).reverse){
@@ -25,6 +27,8 @@ const defaultAnimSett=[{anim:AnimBorderFlare,triggerAddData:({status,data})=>{
    // data().justChangedStage=false
     anim.reverse = true
   
+  },collectId:({status,data,anim})=>{
+    return data().id
   }}]
 
 export const WithPreset=(preset)=>{

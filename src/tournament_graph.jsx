@@ -23,7 +23,7 @@ export default function TournamentGraph({ ...props }) {
   });
   const [participantRef,participantRefSet] = useState({})
   const [participantDouble,participantDoubleSet] = useState([[]])
-
+  const [last, setLast] = useState(stageInfo)
 
   useEffect(()=>{
     //if(!lock)return
@@ -52,6 +52,16 @@ export default function TournamentGraph({ ...props }) {
       }
       time=time*2
     }
+    let laste=props.participant.find((v)=>{
+          return  v.stagePassed >= stageInfo.stageCount +1
+        }) 
+    if(laste){
+      if(laste.justChangedStage){
+            laste={...laste}
+      }
+      setLast(laste)
+    }else setLast(stageInfo)
+      
     participantDoubleSet(a)
     participantRefSet(y)
   },[props.participant])
@@ -86,12 +96,9 @@ export default function TournamentGraph({ ...props }) {
               <BlockParticipant
                 number={i2 + 1}
                 stage={stageInfo.stageCount-i}
-                active
-                l={b}
+
                 stageInfo={stageInfo}
                 key={i2.toString()}
-                card={props.card}
-                
                 soloT={el.top}
                 soloB={el.bottom}
                 
@@ -100,8 +107,8 @@ export default function TournamentGraph({ ...props }) {
             );
           })}
       </Stager>))}
-                 <Stager key={"last"} stage={0} stageInfo={stageInfo}>
-      <BlockParticipantSingle  stage={0} stageInfo={stageInfo} />
+    <Stager key={"last"} stage={0} stageInfo={stageInfo}>
+      <BlockParticipantSingle solo={last} stage={0} stageInfo={stageInfo} />
     </Stager>)
                 </Animer>
   );

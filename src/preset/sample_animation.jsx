@@ -21,5 +21,6 @@ export const AnimBorderFlare=({id,group,data,dataOrder,...props})=>{return{
       getValue:function(signature){
         return this.value[signature]
       },
-      reverse:false
+      reverse:false,
+  animId:"aaaa",
     }}

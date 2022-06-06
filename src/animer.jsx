@@ -19,16 +19,16 @@ export default function Animer(props){
 
   const animPools=useRef({x:1})
 
-  const subscribe=({name="default_anim",group,value,timeout=300,
+  const subscribe=({name="default_anim",group,value,timeout=300,animId,
                     animSettings,dataOrder,getOrder,posibleSubs,id,onDone,getValue,setValue,value2,autoStart,reverse})=>{
-    let frame ={timeout,value,group,
+    let frame ={timeout,value,group,animId,
                 animIt, start, dataOrder,getOrder,posibleSubs,name,id,onDone,getValue,setValue, value2,autoStart,reverse}
     
     
     
     
     animPools.current.x+=1
-    let anim= animPools.current[name] || {...defaultAnim}
+    let anim= animPools.current[name+animId] || {...defaultAnim}
     let found
     anim.frames.find((c,i,a)=>{
       if(c[0].group != group)return false
@@ -64,11 +64,13 @@ export default function Animer(props){
     anim.groups["last"] = timelineGrp
     
     
-    animPools.current[name]=anim
-    frame.pools=animPools.current[name]
+    animPools.current[name+animId]=anim
+    frame.pools=animPools.current[name+animId]
 
    // console.log(animPools)
-    
+    //frame.animId =2
+    defaultAnim.group={}
+    defaultAnim.frames=[]
     return frame
   }
 
@@ -87,7 +89,7 @@ export default function Animer(props){
           for(let i=0;i<k.length;i++){
             
             
-            if(time>=Number.parseInt(k[i]) && time<=(Number.parseInt(k[i+1])+grp || animPools.current[ frame.name].groups["last"])){ 
+            if(time>=Number.parseInt(k[i]) && time<=(Number.parseInt(k[i+1])+grp || animPools.current[ frame.name+frame.animId].groups["last"])){ 
               return reverse(frm[k[i]])
             }
           
@@ -96,19 +98,19 @@ export default function Animer(props){
       }
       return x
     }
-    while(animPools.current[ frame.name].timepassed < animPools.current[ frame.name].groups["last"]+100){
+    while(animPools.current[ frame.name+frame.animId].timepassed < animPools.current[ frame.name+frame.animId].groups["last"]+100){
 
       //setAnimPools((v)=>{return{...v}})
       
     
 
 
-      animPools.current[ frame.name].frames.forEach((a)=>{
+      animPools.current[ frame.name+frame.animId].frames.forEach((a)=>{
         a.forEach((a2)=>{
           console.log("animname inside:",a2.id)
-          let time=animPools.current[ a2.name].timepassed
+          let time=animPools.current[ a2.name+ a2.animId].timepassed
           let r=reverse(a2)
-          let v=group(animPools.current[ a2.name].groups[a2.group],time,r)
+          let v=group(animPools.current[ a2.name+ a2.animId].groups[a2.group],time,r)
           
           a2.setValue(time,v,r)
 
@@ -121,7 +123,7 @@ export default function Animer(props){
         setTimeout(()=>{
           resolve()
         },100))
-      animPools.current[ frame.name].timepassed+=100
+      animPools.current[ frame.name+frame.animId].timepassed+=100
     
     }
     
@@ -129,15 +131,15 @@ export default function Animer(props){
   
   const start=(frame)=>{
       console.log(frame.name+"..........") 
-      if(animPools.current[ frame.name].status == Anim.PLAY) return
+      if(animPools.current[ frame.name+frame.animId].status == Anim.PLAY) return
       console.log("done...")
-      animPools.current[ frame.name].status=Anim.PLAY
+      animPools.current[ frame.name+frame.animId].status=Anim.PLAY
       frame.animIt(frame).then(ok=>{
-        clearInterval(animPools.current[ frame.name].interval)
-        animPools.current[ frame.name].timepassed=0
-        animPools.current[ frame.name].status=Anim.STOP
-        animPools.current[ frame.name].frames=[]
-        animPools.current[ frame.name].groups={}
+        clearInterval(animPools.current[ frame.name+frame.animId].interval)
+        animPools.current[ frame.name+frame.animId].timepassed=0
+        animPools.current[ frame.name+frame.animId].status=Anim.STOP
+        animPools.current[ frame.name+frame.animId].frames=[]
+        animPools.current[ frame.name+frame.animId].groups={}
         if(frame.finish)
           frame.finish()
       })

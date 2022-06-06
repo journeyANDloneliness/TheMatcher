@@ -15,7 +15,7 @@ import { blockToNumber, iStage, calculateFromInfo, parentMatch } from "./helper"
 import { Flare, BorderGrad, BorderGradTop, BorderGradBottom } from "./effect"
 //import {useAnimer} from "./hook"
 //import {AnimerContext} from "./animer"
-import {BlockTop, BlockBottom} from "./block_part"
+import {BlockTop, BlockBottom,BlockSingle} from "./block_part"
 //import tween from '@tweenjs/tween.js'
 
 import {SampleParticipant} from "./matcher"
@@ -74,21 +74,19 @@ export function BlockParticipant(props) {
 }
 export const BlockParticipantSingle = (props) => {
 
-  var i = calculateFromInfo(props.stage, props.stageInfo);
-  var style = {
-    height: i.blockHeight
-  };
-  var style2 = {
-    height: 0,
-    marginTop: -i.blockHeight / 2,
+  const s=useCallback((props2)=> <props.solo.component active={props2.active} position={1} {...props}{...props.solo.fields} number={1}/>,[props.solo])
+  const style = {
+    height: props.stageInfo.blockHeight
   };
 
+  const is=props.stageCount+1
   return (
     <div className="packer" >
       <div className="cont">
 
-        <div style={style} className="block-participant block-participant-bottom"></div>
-        <div style={style2} className="combiner "></div>
+<BlockSingle style={style} is={is} dataOrder={{number:props.stage}} id={"single_"+props.stage+props.number} 
+          solo={props.solo} group={props.stage}
+      comp={s}/>
 
       </div>
     </div>

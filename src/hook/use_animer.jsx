@@ -3,7 +3,7 @@ import {AnimerContext} from './../animer'
 import AnimSettContext from './../context/anim_settings'
   
 
-const useAnimer=({dependency,id,group, dataOrder, data, ...props})=>{
+const useAnimer=({dependency,animId,id,group, dataOrder, data, ...props})=>{
   const animerContext = useContext(AnimerContext)
   const animSettContext = useContext(AnimSettContext)
   const [animList, setAnimList] = useState(()=>{
@@ -12,7 +12,8 @@ const useAnimer=({dependency,id,group, dataOrder, data, ...props})=>{
       subscribeData:function(signature,callback){
         this.subscriber.push({signature,callback})
       },
-      subscriber:[]
+      subscriber:[],
+      //animId:animId
     }
   })
 
@@ -31,7 +32,10 @@ const useAnimer=({dependency,id,group, dataOrder, data, ...props})=>{
  
     animSettContext.forEach((v,i)=>{
       if(v.triggerAddData({status, props,data})){
-        let anim=animerContext.subscribe(v.anim({props,data,id,group, dataOrder}))
+        
+        let anima=v.anim({props,data,id,group, dataOrder})
+        anima.animId = v.collectId({status, props,data})
+        let anim=animerContext.subscribe(anima)
         anim.onDone=function(){
           animList.subscriber.forEach(v2=>{
             v2.callback(this.getValue(v2.signature(this.name)),anim)

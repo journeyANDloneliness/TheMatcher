@@ -1,5 +1,5 @@
 import React,{useState, useEffect, useCallback,useRef,Fragment, memo} from 'react';
-import { DataFlare, DataBorderGrad, DataBorderGradTop, DataBorderGradBottom, WithData,EffectState } from "./effect"
+import { DataFlare, DataBorderGrad,DataBorderGradSingle, DataBorderGradTop, DataBorderGradBottom, WithData,EffectState } from "./effect"
 import useAnimer from './hook/use_animer'
 
 
@@ -25,7 +25,7 @@ const _BlockTop=({style,is,stylea,id, group,soloT,dataOrder, getOrder, comp, chi
     return soloT ? (soloT.stagePassed ? result: true): false;
   }
   
-  const [animList, setAnimList] = useAnimer({id,group, data:()=>soloT, dataOrder, dependency:()=>soloT})
+  const [animList, setAnimList] = useAnimer({ id,group, data:()=>soloT, dataOrder, dependency:()=>soloT})
   
   const subscribe=useCallback((signature,toSet)=>animList.subscribeData(signature,toSet),[animList])
   
@@ -88,6 +88,46 @@ const _BlockBottom=({style,is,stylea, group,id,dataOrder, soloB,comp, children})
        
    </Fragment>)
 }
+const _BlockSingle=({style,is, group,id,dataOrder, solo,comp, children})=>{
+    const ChildrenCom  = useRef(WithData(comp,'main','borderflare')) 
 
+  useEffect(()=>{
+    ChildrenCom.current = WithData(comp,'main','borderflare')
+  },[comp])
+  
+  const stateManipulatorCombiner=(result)=>{
+    return solo.stagePassed > is? result :false
+  }
+  const stateManipulatorConChild=(result)=>{
+    return result? (solo.stagePassed > is? EffectState.Complete  :EffectState.Partial ):false
+  }
+  const stateChildren=(result)=>{
+    return solo ? (solo.stagePassed ? result: true): false;
+  }
+  
+  const [animList, setAnimList] = useAnimer({id,group,data:()=>solo,dataOrder, dependency:()=>solo })
+  
+  const subscribe=useCallback((signature,toSet)=>animList.subscribeData(signature,toSet),[animList])
+  
+  
+  return(<Fragment>
+     <div className="combiner-single ">
+          <DataBorderGradSingle anim={subscribe} stateManipulator={stateManipulatorCombiner}>  
+            <DataFlare anim={subscribe} stateManipulator={stateManipulatorCombiner}/>
+          </DataBorderGradSingle>
+        </div>
+      <div style={style} className="block-participant block-participant-bottom">
+
+          <DataBorderGrad anim={subscribe} stateManipulator={stateManipulatorConChild}>
+
+            <ChildrenCom.current anim={subscribe} stateManipulator={stateChildren}/>
+          </DataBorderGrad>
+
+      </div>
+
+       
+   </Fragment>)
+}
 export const BlockBottom=memo(_BlockBottom)
 export const BlockTop=memo(_BlockTop)
+export const BlockSingle=memo(_BlockSingle)

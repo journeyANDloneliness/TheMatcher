@@ -40,6 +40,7 @@ export function WithData(Com,signature,animname){
 export const DataBorderGrad=WithData(BorderGrad,'main','borderFlare')
 export const DataBorderGradTop=WithData(BorderGradTop,'combiner','borderFlare')
 export const DataBorderGradBottom=WithData(BorderGradBottom,'combiner','borderFlare')
+export const DataBorderGradSingle=WithData(BorderGradSingle,'combiner','borderFlare')
 export const DataFlare=WithData(Flare,'flare','borderFlare')
 console.log('DataBorderGrad',DataBorderGrad)
 
@@ -70,6 +71,12 @@ export function BorderGradBottom(props){
 
     </div>
             )
+}
+export function BorderGradSingle(props){
+  return(<div className={"b-grad-wrap2 s-w "+(props.active?"grad-combiner-active":"grad-combiner")}>      
+          <div className={"grad-hor"}></div>
+            {props.children}
+    </div>)
 }
 export function Flare({active}){       
   return(<div className="combiner-flare">
